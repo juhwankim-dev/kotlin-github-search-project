@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- margin 값 -->
+    <dimen name="activity_margin_default">16dp</dimen>
+
+    <!-- 폰트 크기 값 -->
+    <dimen name="header_text_size">16sp</dimen>
+    <dimen name="body_text_size">14sp</dimen>
+    <dimen name="explain_text_size">10sp</dimen>
+</resources>
