@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     app:queryHint="Search..."
                     app:searchIcon="@drawable/ic_baseline_search_24"
+                    app:closeIcon="@drawable/ic_baseline_close_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
