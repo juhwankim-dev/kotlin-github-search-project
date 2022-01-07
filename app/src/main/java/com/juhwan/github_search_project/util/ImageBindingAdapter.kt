@@ -8,9 +8,10 @@ object ImageBindingAdapter {
     @JvmStatic
     @BindingAdapter("setImageByGlide")
     fun setImageByGlide(view: ImageView, url: String){
-        Glide.with(view.context)
-            .load(url)
-            .override(80, 80)
-            .into(view)
+        if(url.isNotEmpty()) {
+            Glide.with(view.context)
+                .load(url)
+                .into(view)
+        }
     }
 }

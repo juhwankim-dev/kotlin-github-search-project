@@ -9,6 +9,7 @@ class ApplicationClass : Application() {
 
     companion object {
         lateinit var retrofit: Retrofit
+        val PER_PAGE = 10
     }
 
     override fun onCreate() {
