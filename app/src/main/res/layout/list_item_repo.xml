@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="item"
+            type="com.juhwan.github_search_project.dto.Item" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,24 +18,27 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="@dimen/activity_margin_default"
+            app:setImageByGlide="@{item.owner.avatar_url}"
+            tools:srcCompat="@tools:sample/avatars"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_full_name"
             style="@style/header_text"
+            android:id="@+id/tv_full_name"
             android:layout_margin="@dimen/activity_margin_default"
+            android:text="@{item.full_name}"
+            tools:text="juhwankim-dev/Algorithm"
             app:layout_constraintStart_toEndOf="@+id/iv_avatar"
-            app:layout_constraintTop_toTopOf="@+id/iv_avatar"
-            tools:text="juhwankim-dev/Algorithm" />
+            app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
 
         <TextView
-            android:id="@+id/tv_language"
             style="@style/body_text"
-            android:text="Java"
+            android:id="@+id/tv_language"
             android:layout_margin="@dimen/activity_margin_default"
+            android:text="@{item.language}"
+            tools:text="Java"
             app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
             app:layout_constraintStart_toEndOf="@+id/iv_avatar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
