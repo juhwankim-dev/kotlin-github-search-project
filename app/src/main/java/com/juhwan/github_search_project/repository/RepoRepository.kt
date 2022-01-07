@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object GitRepository {
+object RepoRepository {
     fun selectAllRepos(q: String, per_page: Int, page: Int, callback: RetrofitCallback<RepoDto>) {
         RetrofitUtil.repoService.selectAllRepos(q, per_page.toString(), page.toString()).enqueue(object: Callback<RepoDto> {
             override fun onResponse(
