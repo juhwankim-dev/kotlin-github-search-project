@@ -50,4 +50,9 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
             notifyItemRangeInserted((page - 1) * 10, list.size)
         }
     }
+
+    fun reset() {
+        repoList.clear()
+        notifyDataSetChanged()
+    }
 }
