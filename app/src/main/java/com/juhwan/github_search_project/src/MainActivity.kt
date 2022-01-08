@@ -2,6 +2,7 @@ package com.juhwan.github_search_project.src
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.juhwan.github_search_project.R
 import com.juhwan.github_search_project.config.BaseActivity
@@ -44,6 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.svRepo.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    binding.lottieGithub.visibility = View.VISIBLE
                     this@MainActivity.query = query ?: ""
                     page = 1
                     repoAdapter.reset()
@@ -81,7 +83,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             code: Int,
             responseData: RepoDto
         ) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
+
             if(responseData != null) {
+                if(page == 1 && responseData.items.size == 0) {
+                    showToastMessage("검색결과가 없습니다")
+                }
+
                 repoAdapter.loadMorePage(responseData.items, page++)
                 Log.d(TAG, "onSuccess: ${responseData.items.size} repositories received")
             } else {
@@ -90,10 +100,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         override fun onFailure(t: Throwable) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
+            showToastMessage("네트워크 연결을 확인해주세요")
             Log.d(TAG, t.message ?: "onFailure")
         }
 
         override fun onError(code: Int) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
+            
+            showToastMessage("서버가 불안정합니다. 나중에 다시 시도해주세요")
             Log.d(TAG, "onError: Error Code $code")
         }
     }
