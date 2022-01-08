@@ -12,6 +12,7 @@ import com.juhwan.github_search_project.util.RetrofitCallback
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
 
 private const val TAG = "싸피"
 private var page = 1
@@ -45,6 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     this@MainActivity.query = query ?: ""
                     page = 1
+                    repoAdapter.reset()
                     selectAllRepos()
                     return false
                 }
@@ -82,8 +84,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 repoAdapter.loadMorePage(responseData.items, page++)
                 Log.d(TAG, "onSuccess: ${responseData.items.size} repositories received")
             } else {
-                showToastMessage("검색결과가 없습니다")
-                Log.d(TAG, "onSuccess: no responseData")
+                Log.d(TAG, "onSuccess: responseData is null")
             }
         }
 

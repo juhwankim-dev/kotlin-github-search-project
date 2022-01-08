@@ -28,9 +28,13 @@
         <TextView
             style="@style/header_text"
             android:id="@+id/tv_full_name"
+            android:layout_width="0dp"
             android:layout_margin="@dimen/activity_margin_default"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text='@{item.full_name}'
             tools:text="juhwankim-dev/Algorithm"
+            app:layout_constraintWidth_percent="0.7"
             app:layout_constraintStart_toEndOf="@+id/iv_avatar"
             app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
 
