@@ -19,8 +19,8 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_margin="@dimen/activity_margin_default"
-            app:setImageByGlide='@{item.owner.avatar_url ?? ""}'
             tools:srcCompat="@tools:sample/avatars"
+            app:setImageByGlide='@{item.owner.avatar_url ?? ""}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
