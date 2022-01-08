@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
 
-private const val TAG = "싸피"
+private const val TAG = "주환"
 private var page = 1
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
