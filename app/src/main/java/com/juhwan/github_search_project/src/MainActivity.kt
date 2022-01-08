@@ -11,11 +11,15 @@ import com.juhwan.github_search_project.repository.RepoRepository
 import com.juhwan.github_search_project.util.RetrofitCallback
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
 
-private const val TAG = "MainActivity_juhwan"
+private const val TAG = "싸피"
+private var page = 1
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     lateinit var repoAdapter: RepoAdapter
+    private var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initEvent()
     }
 
-    fun initView() {
+    private fun initView() {
         val searchEditText = binding.svRepo.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchEditText.setTextColor(resources.getColor(R.color.white))
         searchEditText.setHintTextColor(resources.getColor(R.color.white))
@@ -36,39 +40,61 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    fun initEvent() {
+    private fun initEvent() {
         binding.svRepo.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    RepoRepository.selectAllRepos(query ?: "", 10, 1, getRepoCallback())
+                    this@MainActivity.query = query ?: ""
+                    page = 1
+                    repoAdapter.reset()
+                    selectAllRepos()
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
                     return false
                 }
             })
+
+        binding.rvRepo.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount
+
+                if (lastVisibleItemPosition > 0 &&
+                    !binding.rvRepo.canScrollVertically(1) &&
+                    lastVisibleItemPosition == itemTotalCount - 1) {
+                    selectAllRepos()
+                }
+            }
+        })
     }
 
-    inner class getRepoCallback: RetrofitCallback<RepoDto> {
+    private fun selectAllRepos() {
+        RepoRepository.selectAllRepos(query, page, RepoCallback())
+    }
+
+    inner class RepoCallback: RetrofitCallback<RepoDto> {
         override fun onSuccess(
             code: Int,
             responseData: RepoDto
         ) {
             if(responseData != null) {
-                repoAdapter.concatList(responseData.items)
+                repoAdapter.loadMorePage(responseData.items, page++)
                 Log.d(TAG, "onSuccess: ${responseData.items.size} repositories received")
             } else {
-                showToastMessage("검색결과가 없습니다")
-                Log.d(TAG, "onSuccess: no responseData")
+                Log.d(TAG, "onSuccess: responseData is null")
             }
         }
 
-        override fun onError(t: Throwable) {
-            Log.d(TAG, t.message ?: "onError")
+        override fun onFailure(t: Throwable) {
+            Log.d(TAG, t.message ?: "onFailure")
         }
 
-        override fun onFailure(code: Int) {
-            Log.d(TAG, "onFailure: Error Code $code")
+        override fun onError(code: Int) {
+            Log.d(TAG, "onError: Error Code $code")
         }
     }
 }

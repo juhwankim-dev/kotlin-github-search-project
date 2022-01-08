@@ -5,7 +5,8 @@
       <map>
         <entry key="..\:/Users/SSAFY/GitHub/kotlin-github-search-project/app/src/main/res/layout/activity_main.xml" value="0.2703804347826087" />
         <entry key="..\:/Users/SSAFY/GitHub/kotlin-github-search-project/app/src/main/res/layout/list_item_git.xml" value="0.2703804347826087" />
-        <entry key="..\:/Users/SSAFY/GitHub/kotlin-github-search-project/app/src/main/res/layout/list_item_repo.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/SSAFY/GitHub/kotlin-github-search-project/app/src/main/res/layout/list_item_loading.xml" value="0.25769927536231885" />
+        <entry key="..\:/Users/SSAFY/GitHub/kotlin-github-search-project/app/src/main/res/layout/list_item_repo.xml" value="0.5" />
       </map>
     </option>
   </component>
