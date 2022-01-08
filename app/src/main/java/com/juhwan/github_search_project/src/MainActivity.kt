@@ -100,11 +100,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         override fun onFailure(t: Throwable) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
             showToastMessage("네트워크 연결을 확인해주세요")
             Log.d(TAG, t.message ?: "onFailure")
         }
 
         override fun onError(code: Int) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
+            
             showToastMessage("서버가 불안정합니다. 나중에 다시 시도해주세요")
             Log.d(TAG, "onError: Error Code $code")
         }
