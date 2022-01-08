@@ -60,6 +60,10 @@
  ┃ ┗ 📜 RetrofitUtil
 ```
 
+### 1-5. 작업 과정
+- [Issue](https://github.com/juhwankim-dev/kotlin-github-search-project/issues?q=is%3Aissue+is%3Aclosed)
+- [Pull Request](https://github.com/juhwankim-dev/kotlin-github-search-project/pulls?q=is%3Apr+is%3Aclosed)
+- [Kanban board](https://github.com/juhwankim-dev/kotlin-github-search-project/projects/1)
 
 <br>
 
