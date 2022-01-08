@@ -2,6 +2,7 @@ package com.juhwan.github_search_project.src
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.juhwan.github_search_project.R
 import com.juhwan.github_search_project.config.BaseActivity
@@ -44,6 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.svRepo.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    binding.lottieGithub.visibility = View.VISIBLE
                     this@MainActivity.query = query ?: ""
                     page = 1
                     repoAdapter.reset()
@@ -81,6 +83,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             code: Int,
             responseData: RepoDto
         ) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
+
             if(responseData != null) {
                 repoAdapter.loadMorePage(responseData.items, page++)
                 Log.d(TAG, "onSuccess: ${responseData.items.size} repositories received")
