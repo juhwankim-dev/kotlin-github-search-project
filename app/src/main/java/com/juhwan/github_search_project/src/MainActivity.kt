@@ -88,6 +88,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             if(responseData != null) {
+                if(page == 1 && responseData.items.size == 0) {
+                    showToastMessage("검색결과가 없습니다")
+                }
+
                 repoAdapter.loadMorePage(responseData.items, page++)
                 Log.d(TAG, "onSuccess: ${responseData.items.size} repositories received")
             } else {
@@ -99,6 +103,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if(page == 1) {
                 binding.lottieGithub.visibility = View.GONE
             }
+            showToastMessage("네트워크 연결을 확인해주세요")
             Log.d(TAG, t.message ?: "onFailure")
         }
 
@@ -106,6 +111,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if(page == 1) {
                 binding.lottieGithub.visibility = View.GONE
             }
+            
+            showToastMessage("서버가 불안정합니다. 나중에 다시 시도해주세요")
             Log.d(TAG, "onError: Error Code $code")
         }
     }
