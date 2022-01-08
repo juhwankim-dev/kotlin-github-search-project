@@ -96,10 +96,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         override fun onFailure(t: Throwable) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
             Log.d(TAG, t.message ?: "onFailure")
         }
 
         override fun onError(code: Int) {
+            if(page == 1) {
+                binding.lottieGithub.visibility = View.GONE
+            }
             Log.d(TAG, "onError: Error Code $code")
         }
     }
