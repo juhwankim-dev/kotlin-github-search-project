@@ -63,7 +63,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val itemTotalCount = recyclerView.adapter!!.itemCount
 
-                if (!binding.rvRepo.canScrollVertically(1) &&
+                if (lastVisibleItemPosition > 0 &&
+                    !binding.rvRepo.canScrollVertically(1) &&
                     lastVisibleItemPosition == itemTotalCount - 1) {
                     selectAllRepos()
                 }
