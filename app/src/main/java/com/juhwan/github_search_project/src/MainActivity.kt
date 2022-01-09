@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
 
-private const val TAG = "주환"
+private const val TAG = "MainActivity_juhwan"
 private var page = 1
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -30,6 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initView() {
+        // 서치뷰 텍스트 색 설정
         val searchEditText = binding.svRepo.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchEditText.setTextColor(resources.getColor(R.color.white))
         searchEditText.setHintTextColor(resources.getColor(R.color.white))
@@ -43,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initEvent() {
         binding.svRepo.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener{
+            object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     binding.lottieGithub.visibility = View.VISIBLE
                     this@MainActivity.query = query ?: ""
@@ -52,6 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     selectAllRepos()
                     return false
                 }
+
                 override fun onQueryTextChange(newText: String?): Boolean {
                     return false
                 }
@@ -65,9 +67,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val itemTotalCount = recyclerView.adapter!!.itemCount
 
+                // 리스트 최하단 감지
                 if (lastVisibleItemPosition > 0 &&
                     !binding.rvRepo.canScrollVertically(1) &&
-                    lastVisibleItemPosition == itemTotalCount - 1) {
+                    lastVisibleItemPosition == itemTotalCount - 1
+                ) {
                     selectAllRepos()
                 }
             }
@@ -78,17 +82,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         RepoRepository.selectAllRepos(query, page, RepoCallback())
     }
 
-    inner class RepoCallback: RetrofitCallback<RepoDto> {
+    inner class RepoCallback : RetrofitCallback<RepoDto> {
         override fun onSuccess(
             code: Int,
             responseData: RepoDto
         ) {
-            if(page == 1) {
+            if (page == 1) {
                 binding.lottieGithub.visibility = View.GONE
             }
 
-            if(responseData != null) {
-                if(page == 1 && responseData.items.size == 0) {
+            if (responseData != null) {
+                if (page == 1 && responseData.items.isEmpty()) {
                     showToastMessage("검색결과가 없습니다")
                 }
 

@@ -9,7 +9,7 @@ class ApplicationClass : Application() {
 
     companion object {
         lateinit var retrofit: Retrofit
-        val PER_PAGE = 10
+        val PER_PAGE = 10 // 한 번에 불러올 페이지 수
     }
 
     override fun onCreate() {

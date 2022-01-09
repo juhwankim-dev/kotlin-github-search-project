@@ -7,5 +7,9 @@ import retrofit2.http.Query
 
 interface RepoApi {
     @GET("search/repositories")
-    fun selectAllRepos(@Query("q") q: String, @Query("per_page") per_page: String, @Query("page") page: String): Call<RepoDto>
+    fun selectAllRepos(
+        @Query("q") q: String,
+        @Query("per_page") per_page: String,
+        @Query("page") page: String
+    ): Call<RepoDto>
 }
