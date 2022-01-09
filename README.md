@@ -219,6 +219,7 @@ object ImageBindingAdapter {
 ### 4-1. 고려사항
 - 첫 번째 UX 고려사항 [(Resolves #15)](https://github.com/juhwankim-dev/kotlin-github-search-project/pull/17)
 - HTTP request 요청 전에 Lottie를 띄우고 응답을 받으면 Lottie를 안보이게 설정
+- 프로그램이 `응답 중`임을 표시
 - `Lottie`를 사용함으로써 사용자가 대기하는 `체감 시간 감소` 효과
 
 <br>
